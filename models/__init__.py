@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This module is a magic method that initialializes the FileStorage instance for the application for models directory."""
+"""This module is used to create a unique FileStorage instance for the application."""
 
 from models.engine.file_storage import FileStorage
 

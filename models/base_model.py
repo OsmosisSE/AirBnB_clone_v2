@@ -3,6 +3,7 @@
 
 import uuid
 from datetime import datetime
+from models import storage
 
 class BaseModel:
     """Base class for other models with common attributes and methods."""
@@ -20,7 +21,7 @@ class BaseModel:
         if kwargs:
             self.id = kwargs.get('id', str(uuid.uuid4()))
             self.created_at = datetime.strptime(kwargs['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
-            self.updated_at = datetime.strptime(kwargs['updated_at'], kwargs['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
+            self.updated_at = datetime.strptime(kwargs['updated_at'], "%Y-%m-%dT%H:%M:%S.%f")
 
             kwargs.pop('__class__', None)
             kwargs.pop('id', None)
@@ -32,11 +33,13 @@ class BaseModel:
         else:        
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
-            self.updated_at = datetime.now()
+            self.updated_at = self.created_at
+            storage.new(self)
 
     def save(self):
         """Update the 'update_at' attribute with the current datetime."""
         self.update_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """Return a dictionary represention of the instance.
@@ -46,7 +49,7 @@ class BaseModel:
         """
         obj_dict = self.__dict__.copy()
         obj_dict['__class__'] = self.__class__.__name__
-        obj_dict['created_at'] = self.created_at.isofarmat()
+        obj_dict['created_at'] = self.created_at.isoformat()
         obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict
 
