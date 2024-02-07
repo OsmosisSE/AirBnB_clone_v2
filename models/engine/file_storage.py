@@ -2,9 +2,6 @@
 """This is a module that contains the FileStorage that serializes instances to a JSON file and deserializes JSON file to instances."""
 
 import json
-import os.path
-from models.base_model import BaseModel
-from models.user import User
 
 class FileStorage:
     """Class for serializing instances to a JSON file and deserializing from a JSON file."""
