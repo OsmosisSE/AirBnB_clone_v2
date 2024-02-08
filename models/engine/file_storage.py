@@ -15,14 +15,25 @@ class FileStorage:
     """Class for serializing instances to JSON file and deserializing from a JSON file."""
 
     __file_path = "file.json"
-    __objects = {"BaseMode": BaseModel, "User": User, "State": State, "City": City, "Amenity": Amenity, "Place": Place, "Review": Review}
+    __objects = {
+                "BaseMode": BaseModel,
+                "User": User,
+                "State": State,
+                "City": City,
+                "Amenity": Amenity,
+                "Place": Place,
+                "Review": Review
+                }
 
     def all(self):
         """Return the dictionary containing all stored objects."""
         return self.__objects
 
     def new(self, obj):
-        """Adds a new object to the storage dictionary."""
+        """Adds a new object to the storage dictionary.
+        Args:
+            obj: Instance of a class
+        """
         key = "{].{}".format(obj.__class__.__name__, obj.id)
         self.__objects[key] = obj
 
@@ -33,8 +44,11 @@ class FileStorage:
             json.dump(obj_dict, file)
 
     def reload(self):
-        """Deserialize the JSON file to __objects."""
-        if path.exists(self.__file_path):
+        """Deserialize the JSON file to __objects.
+        Only if the JSON file(__file_path) exists; otherwise do nothing.
+        If the file doesn't, no exception should be raised.
+        """
+        if os.path.exists(self.__file_path):
             with open(self.__file_path, 'r') as file:
                 obj_dict = json.load(file)
                 for key, obj_data in obj_dict.items():
