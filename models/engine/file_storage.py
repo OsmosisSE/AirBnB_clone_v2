@@ -2,12 +2,20 @@
 """This is a module that contains the FileStorage that serializes instances to a JSON file and deserializes JSON file to instances."""
 
 import json
+import os.path
+from models.ase_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 class FileStorage:
     """Class for serializing instances to a JSON file and deserializing from a JSON file."""
 
     __file_path = "file.json"
-    __objects = {"BaseModel": BaseModel, "User": User}
+    __objects = {"BaseModel": BaseModel, "User": User, "State": State, "City": City, "Amenity": Amenity, "Place": Place, "Review": Review}
 
     def all(self):
         """Return the dictionary conatining all stored objects."""
