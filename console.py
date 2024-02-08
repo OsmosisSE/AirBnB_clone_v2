@@ -2,6 +2,14 @@
 """This module contains the HBNBCommand class which is the entry point of the command interpreter."""
 
 import cmd
+from models import storage
+from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
     """Command interpreter for the HBNB console."""
@@ -30,12 +38,13 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """Create a new instance of BaseModel, save it and print the id."""
-        if not arg:
+        args = arg.split()
+        if not args:
             print("** class name missing **")
-        elif arg not in globals():
-                print("** class doesn't exist **")
+        elif args[0] not in globals():
+            print("** class doesn't exist **")
         else:
-            new_instance = globals()[arg]()
+            new_instance = globals()[args[0]]()
             new_instance.save()
             print(new_instance.id)
 
@@ -70,7 +79,7 @@ class HBNBCommand(cmd.Cmd):
                 del storage.all()[key]
                 storage.save()
             else:
-                print("** nor instance found **")
+                print("** no instance found **")
 
     def do_all(self, arg):
         """Prints string representation of all instances."""
@@ -109,8 +118,95 @@ class HBNBCommand(cmd.Cmd):
                 obj = storage.all()[key]
                 setattr(obj, args[2], args[3].strip('"'))
                 obj.save()
-                
-                storage.save()
+
+    def do_all(self, arg):
+        """Prints string representation of all instances of a class."""
+        args = arg.split()
+        obj_split = []
+        if not args:
+            print("** class name missing **")
+        elif args[0] not in globals():
+            print("** class doesn't exist **")
+        else:
+            obj_list = [str(obj) for obj in globals()[args[0].all()]
+        print(obj_list)
+
+    def do_count(self, arg):
+        """Count the number of instances of a class."""
+        args = arg.split()
+        if not args:
+            print("** classs name missing **")
+        elif args[0] not in globals():
+            print("** class doesn't exist **")
+        else:
+            instance_count = len(globals()[args[0]].all())
+            print(instance_count)
+
+    def do_show_instance(self, arg):
+        """Show an instance based on its ID."""
+        args = arg.split()
+        if not args:
+            print("** class name missing **")
+        elif args[0] not in globals():
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        else:
+            key = "{}.{}".format(args[0], args[10)
+            if key in storage.all():
+                print(storage.all(0[key])
+            else:
+                print("** no instance found **")
+
+    def do_destroy_instance(self, arg):
+        """Destroy an instance based on its ID."""
+        args = arg.split()
+        if not args:
+            print("** class name missing **")
+        elif args[0] not in globals():
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        else:
+            key = "{}.{}".format(args[0], args[1])
+            if key in storage.all():
+                del storage.all(0[key]
+                strorage.save()
+            else:
+                print("** no instance found **")
+
+    def do_update_instance(self, arg):
+        """Update an instance based on its ID using a dictionary representation."""
+        args = arg.split()
+        if not args:
+            print("** class name missing **")
+        elif args[0] not in globals():
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        elif len(args) == 2:
+            print("** dictionary missing **")
+        elif len(args) == 3:
+            print("** value missing **")
+        else:
+            key = "{}.{}".format(args[0], args[1])
+            if key not in staorage.all():
+                print("** no instance found **")
+            else:
+                obj = storage.all(0[key]
+                if len(args) == 3:
+                    print("** dictionary missing **")
+                else:
+                    try:
+                        dict_rep = eval(args[3])
+                        if type(dict_rep) is dict:
+                            for k, v in dict_rep.items():
+                                setattr(obj, k, v)
+                            obj.save()
+                        else:
+                            print("** invalid dictionary **")
+                    except Exception as e:
+                        print("** invalid dictionary **")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
