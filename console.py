@@ -128,8 +128,8 @@ class HBNBCommand(cmd.Cmd):
         elif args[0] not in globals():
             print("** class doesn't exist **")
         else:
-            obj_list = [str(obj) for obj in globals()[args[0].all()]
-        print(obj_list)
+            obj_list = [str(obj) for obj in globals()[args[0]].all()]
+            print(obj_list)
 
     def do_count(self, arg):
         """Count the number of instances of a class."""
@@ -152,9 +152,9 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) == 1:
             print("** instance id missing **")
         else:
-            key = "{}.{}".format(args[0], args[10)
+            key = "{}.{}".format(args[0], args[1])
             if key in storage.all():
-                print(storage.all(0[key])
+                print(storage.all()[key])
             else:
                 print("** no instance found **")
 
@@ -170,8 +170,8 @@ class HBNBCommand(cmd.Cmd):
         else:
             key = "{}.{}".format(args[0], args[1])
             if key in storage.all():
-                del storage.all(0[key]
-                strorage.save()
+                del storage.all()[key]
+                storage.save()
             else:
                 print("** no instance found **")
 
@@ -193,7 +193,7 @@ class HBNBCommand(cmd.Cmd):
             if key not in staorage.all():
                 print("** no instance found **")
             else:
-                obj = storage.all(0[key]
+                obj = storage.all()[key]
                 if len(args) == 3:
                     print("** dictionary missing **")
                 else:
