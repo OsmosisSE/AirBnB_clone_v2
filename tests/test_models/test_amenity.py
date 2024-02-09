@@ -163,7 +163,7 @@ class TestAmenity_to_dict(unittest.TestCase):
         tdict = {
                 'id': '123456',
                 '__class__': 'Amenity',
-                'created_at': dt.isoforamt(),
+                'created_at': dt.isoformat(),
                 'updated_at': dt.isoformat(),
                 }
         self.assertDictEqual(am.to_dict(), tdict)
