@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This is the unit test for BaseModel."""
+"""This is a unittest for models/base_model.py and the unitest classes are TestBaseModel_instantiation, TestBaseModel_save and TestBaseModel_to_dict."""
 
 import os
 import models
