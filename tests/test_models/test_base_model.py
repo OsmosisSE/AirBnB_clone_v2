@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This is a unittest for models/base_model.py and the unitest classes are TestBaseModel_instantiation, TestBaseModel_save and TestBaseModel_to_dict."""
+"""This is a unittest for models/base_model.py and the unittest classes are TestBaseModel_instantiation, TestBaseModel_save and TestBaseModel_to_dict."""
 
 import os
 import models
@@ -162,13 +162,12 @@ class TestBaseModel_to_dict(unittest.TestCase):
         bm = BaeModel()
         bm.id = "123456"
         bm.created_at = bm.updated_at = dt
-        tdict =
-        {
-            'id': '123456',
-            '__class__': 'BaseModel',
-            'created_at': dt.isoformat()
-            'updated_at': dt.isoformat()
-        }
+        tdict = {
+                'id': '123456',
+                '__class__': 'BaseModel',
+                'created_at': dt.isoformat(),
+                'updated_at': dt.isoformat(),
+                }
         self.assertDictEqual(bm.to_dict(), tdict)
 
     def test_contrast_to_dict_dunder_dict(self):
