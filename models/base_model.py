@@ -7,6 +7,7 @@ from datetime import datetime
 
 class BaseModel:
     """Base class for other models with common attributes and methods."""
+    
     def __init__(self, *args, **kwargs):
         """Initialize a new instance of the BaseModel class.
         Args:
@@ -17,28 +18,22 @@ class BaseModel:
                 'id' is set to a new UUID if not present.
                 '__class__' from kwargs is ignored
         """
-
-        if kwargs:
-            self.id = kwargs.get('id', str(uuid.uuid4()))
-            self.created_at = datetime.strptime(kwargs['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
-            self.updated_at = datetime.strptime(kwargs['updated_at'], "%Y-%m-%dT%H:%M:%S.%f")
-
-            kwargs.pop('__class__', None)
-            kwargs.pop('id', None)
-            kwargs.pop('created_at', None)
-            kwargs.pop('updated_at', None)
-
-            for key, value in kwargs.items():
-                setattr(self, key, value)
-        else:        
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = self.created_at
+        tform = "%Y-%m-%dT%H:%M:%S.%f"
+        self.id = str(uuid4())
+        self.created_at = datetime.today()
+        self.updated_at = datetime.today()
+        if len(kwargs) != 0:
+            for k, v in kwargs.items():
+                if k == "created_at" or k == "updated_at":
+                    self.__dict__[k] = datetime.strptime(v, tform)
+                else:
+                    self.__dict__[k] = v
+        else:
             models.storage.new(self)
 
     def save(self):
         """Update the 'update_at' attribute with the current datetime."""
-        self.update_at = datetime.now()
+        self.update_at = datetime.today()
         models.storage.save()
 
     def to_dict(self):
@@ -47,11 +42,11 @@ class BaseModel:
             dict: A dictionary containing keys/values of instance attributes.
                     Includes '__class__', 'created_at' and 'updated_at.'
         """
-        obj_dict = self.__dict__.copy()
-        obj_dict['__class__'] = self.__class__.__name__
-        obj_dict['created_at'] = self.created_at.isoformat()
-        obj_dict['updated_at'] = self.updated_at.isoformat()
-        return obj_dict
+        rdict = self.__dict__.copy()
+        rdict['__class__'] = self.__class__.__name__
+        rdict['created_at'] = self.created_at.isoformat()
+        rdict['updated_at'] = self.updated_at.isoformat()
+        return rdict
 
     def __str__(self):
         """Return a dictionary reprsentation of the instance.
