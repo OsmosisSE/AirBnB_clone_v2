@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This is a unitest for models/city.py and the unittest classes are TestCity_instantiation, TestCity_save and TestCity_to_dict."""
+"""This is a unittest for models/city.py and the unittest classes are TestCity_instantiation, TestCity_save and TestCity_to_dict."""
 
 import os
 import models
