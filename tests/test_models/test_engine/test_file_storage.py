@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-"""This is a unittest for models/engine/file_storage.py and the unittest classes are TestFileStorage_instantiation and TestFileStorage_methods
+"""This is a unittest for models/engine/file_storage.py and the unittest classes are TestFileStorage_instantiation and TestFileStorage_methods."""
 
 import os
 import json
 import models
-importunittest
+import unittest
 from datetime import datetime
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
