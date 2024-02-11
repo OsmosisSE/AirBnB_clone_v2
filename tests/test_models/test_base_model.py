@@ -2,11 +2,17 @@
 """This is a unittest for models/base_model.py and the unittest classes are TestBaseModel_instantiation, TestBaseModel_save and TestBaseModel_to_dict."""
 
 import os
-import models
+import sys
 import unittest
 from datetime import datetime
 from time import sleep
+
+current_dir = os.path.dirname(os.path.realpath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+
 from models.base_model import BaseModel
+import models
 
 class TestBaseModel_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the BaseModel class."""
@@ -74,7 +80,7 @@ class TestBaseModel_instantiation(unittest.TestCase):
     def test_instantiation_with_args_and_kwargs(self):
         dt = datetime.today()
         dt_iso = dt.isoformat()
-        bm = BaeModel("12", id="345", created_at=dt_iso, updated_at=dt_iso)
+        bm = BaseModel("12", id="345", created_at=dt_iso, updated_at=dt_iso)
         self.assertEqual(bm.id, "345")
         self.assertEqual(bm.created_at, dt)
         self.assertEqual(bm.updated_at, dt)
@@ -159,12 +165,12 @@ class TestBaseModel_to_dict(unittest.TestCase):
 
     def test_to_dict_output(self):
         dt = datetime.today()
-        bm = BaeModel()
+        bm = BaseModel()
         bm.id = "123456"
         bm.created_at = bm.updated_at = dt
         tdict = {
                 'id': '123456',
-                '__class__': 'BaseModel',
+                '__class__': 'models.base_model.BaseModel',
                 'created_at': dt.isoformat(),
                 'updated_at': dt.isoformat(),
                 }
