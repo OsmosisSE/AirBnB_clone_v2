@@ -1,20 +1,24 @@
 #!/usr/bin/python3
-"""This is a model for Base class that defines all common attributes/methods for other classes."""
+"""Defines the BaseModel class."""
 
 import models
 from uuid import uuid4
 from datetime import datetime
 
+
 class BaseModel:
     """Base class for other models with common attributes and methods."""
-    
+
     def __init__(self, *args, **kwargs):
         """Initialize a new instance of the BaseModel class.
+
         Args:
-            *args: The variable-length argument list (not used in this implementation).
+            *args: Not used in this implementation.
             **kwargs: The variable-length keyword argument list.
-                If not empty, each key is an attribute name, and each value is a corresponding value
-                'created_at' and 'updated_at' values are converted from strings to datetime objects.
+            If not empty, each key is an attribute name, and each value
+            is a corresponding value
+                'created_at' and 'updated_at' values are converted
+                from strings to datetime objects.
                 'id' is set to a new UUID if not present.
                 '__class__' from kwargs is ignored
         """
@@ -49,8 +53,6 @@ class BaseModel:
         return rdict
 
     def __str__(self):
-        """Return a dictionary reprsentation of the instance.
-        Returns:
-            str: A string in the format: "[<class name>] (<self.id>) <self.__dict__>
-        """
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        """Return a string reprsentation of the BaseModel instance."""
+        return "[{}] ({}) {}".format(
+                self.__class__.__name__, self.id, self.__dict__)
