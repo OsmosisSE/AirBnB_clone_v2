@@ -83,7 +83,7 @@ class TestBaseModel_save(unittest.TestCase):
     """Unittests for testing save method of the BaseModel class."""
 
     @classmethod
-    def setUpClass(cls)
+    def setUpClass(cls):
         try:
             os.rename("file.json", "tmp")
         except IOError:
@@ -124,7 +124,7 @@ class TestBaseModel_save(unittest.TestCase):
             bm.save(None)
 
     def test_save_updates_file(self):
-        bm = BaeModel()
+        bm = BaseModel()
         bm.save()
         bmid = "BaseModel." + bm.id
         with open("file.json", "r") as f:
@@ -135,7 +135,7 @@ class TestBaseModel_to_dict(unittest.TestCase):
 
     def test_to_dict_type(self):
         bm = BaseModel()
-        self.assertTrue(dict, type(bm.to_dict())
+        self.assertTrue(dict, type(bm.to_dict()))
 
     def test_to_dict_contains_correct_keys(self):
         bm = BaseModel()
@@ -172,7 +172,7 @@ class TestBaseModel_to_dict(unittest.TestCase):
 
     def test_contrast_to_dict_dunder_dict(self):
         bm = BaseModel()
-        self.assertNotEqual(bm.to_dict(0, bm.__dict__)
+        self.assertNotEqual(bm.to_dict(), bm.__dict__)
 
     def test_to_dict_with_arg(self):
         bm = BaseModel()

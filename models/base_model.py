@@ -26,14 +26,12 @@ class BaseModel:
         self.id = str(uuid4())
         self.created_at = datetime.today()
         self.updated_at = datetime.today()
-        if len(kwargs) != 0:
+        if kwargs:
             for k, v in kwargs.items():
                 if k == "created_at" or k == "updated_at":
-                    self.__dict__[k] = datetime.strptime(v, tform)
-                else:
-                    self.__dict__[k] = v
-        else:
-            models.storage.new(self)
+                    setattr(self, k, datetime.strptime(v, tform))
+                elif k != "__class__":
+                    setattr(self, k, v)
 
     def save(self):
         """Update the 'update_at' attribute with the current datetime."""
@@ -41,11 +39,7 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
-        """Return a dictionary represention of the instance.
-        Returns:
-            dict: A dictionary containing keys/values of instance attributes.
-                    Includes '__class__', 'created_at' and 'updated_at.'
-        """
+        """Return a dictionary represention of the instance."""
         rdict = self.__dict__.copy()
         rdict['__class__'] = self.__class__.__name__
         rdict['created_at'] = self.created_at.isoformat()
