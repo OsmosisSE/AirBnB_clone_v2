@@ -27,7 +27,7 @@ class TestUser_instantiation(unittest.TestCase):
         self.assertEqual(datetime, type(User().updated_at))
 
     def test_email_is_public_str(self):
-        self.assertEqual(str, type(User.email)))
+        self.assertEqual(str, type(User.email))
 
     def test_password_is_public_str(self):
         self.assertEqual(str, type(User.password))
