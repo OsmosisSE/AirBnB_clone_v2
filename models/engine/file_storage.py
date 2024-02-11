@@ -2,7 +2,7 @@
 """This is a module that contains the FileStorage that serializes instances to a JSON file and deserialize JSON file to instances."""
 
 import json
-from models.basemodel import BaseModel
+from models.base_model import BaseModel
 from models.user import User
 from models.state import State
 from models.city import City
@@ -15,7 +15,7 @@ class FileStorage:
 
     __file_path = "file.json"
     __objects = {
-                "BaseMode": BaseModel,
+                "BaseModel": BaseModel,
                 "User": User,
                 "State": State,
                 "City": City,
@@ -40,7 +40,7 @@ class FileStorage:
         """Serialize__objects to JSON file (__file_path)."""
         odict = FileStorage.__objects
         objdict = {obj: odict[obj].to_dict() for obj in odict.keys()}
-        with open(FileStorage.__filepath, "w") as f:
+        with open(FileStorage.__file_path, "w") as f:
             json.dump(objdict, f)
 
     def reload(self):

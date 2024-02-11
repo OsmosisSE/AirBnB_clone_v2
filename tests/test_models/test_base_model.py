@@ -2,11 +2,18 @@
 """This is a unittest for models/base_model.py and the unittest classes are TestBaseModel_instantiation, TestBaseModel_save and TestBaseModel_to_dict."""
 
 import os
-import models
+import sys
 import unittest
 from datetime import datetime
 from time import sleep
+
+current_dir = os.path.dirname(os.path.realpath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+
 from models.base_model import BaseModel
+import models
+print(sys.path)
 
 class TestBaseModel_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the BaseModel class."""
@@ -74,7 +81,7 @@ class TestBaseModel_instantiation(unittest.TestCase):
     def test_instantiation_with_args_and_kwargs(self):
         dt = datetime.today()
         dt_iso = dt.isoformat()
-        bm = BaeModel("12", id="345", created_at=dt_iso, updated_at=dt_iso)
+        bm = BaseModel("12", id="345", created_at=dt_iso, updated_at=dt_iso)
         self.assertEqual(bm.id, "345")
         self.assertEqual(bm.created_at, dt)
         self.assertEqual(bm.updated_at, dt)
@@ -83,14 +90,14 @@ class TestBaseModel_save(unittest.TestCase):
     """Unittests for testing save method of the BaseModel class."""
 
     @classmethod
-    def setUp(self):
+    def setUpClass(cls):
         try:
             os.rename("file.json", "tmp")
         except IOError:
             pass
 
     @classmethod
-    def tearDown(self):
+    def tearDownClass(cls):
         try:
             os.remove("file.json")
         except IOError:
@@ -124,7 +131,7 @@ class TestBaseModel_save(unittest.TestCase):
             bm.save(None)
 
     def test_save_updates_file(self):
-        bm = BaeModel()
+        bm = BaseModel()
         bm.save()
         bmid = "BaseModel." + bm.id
         with open("file.json", "r") as f:
@@ -135,7 +142,7 @@ class TestBaseModel_to_dict(unittest.TestCase):
 
     def test_to_dict_type(self):
         bm = BaseModel()
-        self.assertTrue(dict, type(bm.to_dict())
+        self.assertTrue(dict, type(bm.to_dict()))
 
     def test_to_dict_contains_correct_keys(self):
         bm = BaseModel()
@@ -159,12 +166,12 @@ class TestBaseModel_to_dict(unittest.TestCase):
 
     def test_to_dict_output(self):
         dt = datetime.today()
-        bm = BaeModel()
+        bm = BaseModel()
         bm.id = "123456"
         bm.created_at = bm.updated_at = dt
         tdict = {
                 'id': '123456',
-                '__class__': 'BaseModel',
+                '__class__': 'models.base_model.BaseModel',
                 'created_at': dt.isoformat(),
                 'updated_at': dt.isoformat(),
                 }
@@ -172,7 +179,7 @@ class TestBaseModel_to_dict(unittest.TestCase):
 
     def test_contrast_to_dict_dunder_dict(self):
         bm = BaseModel()
-        self.assertNotEqual(bm.to_dict(0, bm.__dict__)
+        self.assertNotEqual(bm.to_dict(), bm.__dict__)
 
     def test_to_dict_with_arg(self):
         bm = BaseModel()
