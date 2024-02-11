@@ -13,6 +13,7 @@ sys.path.append(parent_dir)
 
 from models.base_model import BaseModel
 import models
+print(sys.path)
 
 class TestBaseModel_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the BaseModel class."""
