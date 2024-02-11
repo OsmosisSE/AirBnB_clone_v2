@@ -135,7 +135,7 @@ class HBNBCommand(cmd.Cmd):
         """Count the number of instances of a class."""
         args = arg.split()
         if not args:
-            print("** classs name missing **")
+            print("** class name missing **")
         elif args[0] not in globals():
             print("** class doesn't exist **")
         else:

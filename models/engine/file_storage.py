@@ -2,7 +2,7 @@
 """This is a module that contains the FileStorage that serializes instances to a JSON file and deserialize JSON file to instances."""
 
 import json
-from models.basemodel import BaseModel
+from models.base_model import BaseModel
 from models.user import User
 from models.state import State
 from models.city import City
