@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This module contains the HBNBCommand class which is the entry point of the command interpreter."""
+"""This module contains the HBNBCommand class."""
 
 import cmd
 from models import storage
@@ -10,6 +10,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+
 
 class HBNBCommand(cmd.Cmd):
     """Command interpreter for the HBNB console."""
@@ -176,7 +177,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_update_instance(self, arg):
-        """Update an instance based on its ID using a dictionary representation."""
+        """Update an instance based on its ID using a dictionar."""
         args = arg.split()
         if not args:
             print("** class name missing **")
@@ -207,6 +208,7 @@ class HBNBCommand(cmd.Cmd):
                             print("** invalid dictionary **")
                     except Exception as e:
                         print("** invalid dictionary **")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
