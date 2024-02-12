@@ -3,8 +3,9 @@
 
 from models.base_model import BaseModel
 
+
 class User(BaseModel):
-    """Class representing a User with email, password, first_name and last_name."""
+    """Class representing a User"""
     email = ""
     password = ""
     first_name = ""
