@@ -26,12 +26,14 @@ class BaseModel:
         self.id = str(uuid4())
         self.created_at = datetime.today()
         self.updated_at = datetime.today()
-        if kwargs:
+        if len(kwargs) != 0:
             for k, v in kwargs.items():
                 if k == "created_at" or k == "updated_at":
-                    setattr(self, k, datetime.strptime(v, tform))
-                elif k != "__class__":
-                    setattr(self, k, v)
+                    self.__dict__[k] = datetime.strptime(v, tform)
+                else:
+                    self.__dict__[k] = v
+        else:
+            models.storage.new(self)
 
     def save(self):
         """Update the 'update_at' attribute with the current datetime."""
@@ -41,12 +43,12 @@ class BaseModel:
     def to_dict(self):
         """Return a dictionary represention of the instance."""
         rdict = self.__dict__.copy()
-        rdict['__class__'] = self.__class__.__name__
-        rdict['created_at'] = self.created_at.isoformat()
-        rdict['updated_at'] = self.updated_at.isoformat()
+        rdict["created_at"] = self.created_at.isoformat()
+        rdict["updated_at"] = self.updated_at.isoformat()
+        rdict["__class__"] = self.__class__.__name__
         return rdict
 
     def __str__(self):
         """Return a string reprsentation of the BaseModel instance."""
-        return "[{}] ({}) {}".format(
-                self.__class__.__name__, self.id, self.__dict__)
+        clname = self.__class__.__name__
+        return "[{}] ({}) {}".format(clname, self.id, self.__dict__)
