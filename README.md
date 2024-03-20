@@ -1,9 +1,19 @@
-# 0x00. AirBnB clone - The console
+# 0x02. AirBnB clone - MySQL
+
+This is an updated version from the previous AirBnB clone
+
 ## Description
 This project is a command-line interface (CLI) implementation of an AirBnB clone. It allows users to interact with objects such as Users, Places, Cities, States, and more, similar to the functionality of the AirBnB website.
 
 ## Command Interpreter
 The command interpreter provides a command-line interface for interacting with the AirBnB objects. Here's how to get started with the command interpreter:
+
+### Functionalities of this command interpreter:
+* Create a new object (ex: a new User or a new Place)
+* Retrieve an object from a file, a database etc...
+* Do operations on objects (count, compute stats, etc...)
+* Update attributes of an object
+* Destroy an object
 
 ### How to Start
 To start the command interpreter, run the `console.py` script located in the project directory.
@@ -40,3 +50,8 @@ EOF  help  quit
 $
 ```
 
+### Authors
+Ogolu Chukwuebuka Harrison <sirosmosis1@gmail.com>
+Omosalewa Akinsete Valentine <shaleycoral@gmail.com>
+
+Second part of AirBnB: Ogolu Chukwuebuka Harrison
