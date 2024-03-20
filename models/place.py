@@ -16,16 +16,18 @@ from sqlalchemy.orm import relationship
 
 
 association_table = Table("place_amenity", Base.metadata,
-        Column("place_id", String(60),
-            ForeignKey("places.id"),
-            primary_key=True, nullable=False),
-        Column("amenity_id", String(60),
-            ForeignKey("amenities.id"),
-            primary_key=True, nullable=False))
+                          Column("place_id", String(60),
+                                 ForeignKey("places.id"),
+                                 primary_key=True, nullable=False),
+                          Column("amenity_id", String(60),
+                                 ForeignKey("amenities.id"),
+                                 primary_key=True, nullable=False))
 
-        class Place(BaseModel, Base):
-            """Represents a Place for a MySQL database.
-            Inherits from SQLAlchemy Base and links to the MySQL table places.
+
+class Place(BaseModel, Base):
+    """Represents a Place for a MySQL database.
+
+    Inherits from SQLAlchemy Base and links to the MySQL table places.
 
     Attributes:
         __tablename__ (str): The name of the MySQL table to store places.
@@ -56,7 +58,7 @@ association_table = Table("place_amenity", Base.metadata,
     longitude = Column(Float)
     reviews = relationship("Review", backref="place", cascade="delete")
     amenities = relationship("Amenity", secondary="place_amenity",
-            viewonly=False)
+                             viewonly=False)
     amenity_ids = []
 
     if getenv("HBNB_TYPE_STORAGE", None) != "db":
